@@ -1,5 +1,6 @@
 package com.todoist.en;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.*;
@@ -29,17 +30,18 @@ public class homePage_amazon {
 	
 	public void amazon_click_searchButton_to_search_iPhone8() {
 		searchButton.click();
-	}
+	} 
 	
-	public String amazon_get_List_of_Search_Result() {
-		int i;
-		String elementText = null;
-	 for( i =0;i<iPhoneSearchResult.size();i++)
-	 		{
-			 elementText = iPhoneSearchResult.get(i).getText(); 
-			 System.out.println(elementText); 
-			}
-	 return elementText;
+	public List<String> amazon_get_List_of_Search_Result() {
+		List<String> results = new ArrayList<String>();
+		for (int i = 0; i < iPhoneSearchResult.size(); i++) {
+			results.add(iPhoneSearchResult.get(i).getText());
+		}
+		return results;
+	}
+
+	public void verifySearchResult(String keyword_iPhone) {
+		
 		
 	}
 

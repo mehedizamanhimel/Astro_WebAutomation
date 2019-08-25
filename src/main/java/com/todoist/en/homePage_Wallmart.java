@@ -1,5 +1,7 @@
 package com.todoist.en;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.*;
@@ -33,16 +35,14 @@ public class homePage_Wallmart {
 		searchButton.click();
 	}
 	
-	public String eBayGetListofSearchResult() {
+	public List<String> eBayGetListofSearchResult() {
+		List<String> results = new ArrayList<String>();
+		for (int i = 0; i < iPhoneSearchResult.size(); i++) {
+			results.add(iPhoneSearchResult.get(i).getText());
+		}
+		return results;
 		
-		int i;
-		String elementText = null;
-	 for( i =0;i<iPhoneSearchResult.size();i++)
-	 		{
-			 elementText = iPhoneSearchResult.get(i).getText(); 
-			 System.out.println(elementText); 
-			}
-	 return elementText;
 	}
 
+	
 }
