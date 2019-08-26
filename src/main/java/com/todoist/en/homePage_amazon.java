@@ -24,6 +24,9 @@ public class homePage_amazon {
 	@FindBy(css="span[class='a-size-medium a-color-base a-text-normal']")
 	List<WebElement> iPhoneSearchResult;
 	
+	@FindBy(css="a[class='a-size-base a-link-normal s-no-hover a-text-normal']")
+	List<WebElement> iPhoneSearchPrices;
+	
 	public void amazon_type_KeyWord_for_iPhone_in_searchBox(String searchiPhone) {
 		searchBar.sendKeys(searchiPhone);
 	}
@@ -39,10 +42,14 @@ public class homePage_amazon {
 		}
 		return results;
 	}
-
-	public void verifySearchResult(String keyword_iPhone) {
-		
-		
+	
+	public List<String> amazon_get_List_of_Search_Price() {
+		List<String> results2 = new ArrayList<String>();
+		for (int i = 0; i < iPhoneSearchPrices.size(); i++) {
+			results2.add(iPhoneSearchPrices.get(i).getText());
+		}
+		return results2;
 	}
 
+	
 }

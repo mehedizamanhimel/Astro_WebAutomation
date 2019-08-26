@@ -7,7 +7,7 @@ import java.util.List;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 
-public class homePage_Wallmart {
+public class homePage_eBay {
 	
 	WebDriver driver;
 	
@@ -20,9 +20,10 @@ public class homePage_Wallmart {
 	@FindBy(css="h3[class='s-item__title']")
 	List<WebElement> iPhoneSearchResult;
 	
+	@FindBy(css="span[class='s-item__price']")
+	List<WebElement> iPhoneSearchPriceseBay;
 	
-	
-	public homePage_Wallmart(WebDriver driver) {
+	public homePage_eBay(WebDriver driver) {
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -41,7 +42,14 @@ public class homePage_Wallmart {
 			results.add(iPhoneSearchResult.get(i).getText());
 		}
 		return results;
-		
+	}
+	
+	public List<String> eBayGetListofSearchPrices() {
+			List<String> results2 = new ArrayList<String>();
+		for (int i = 0; i < iPhoneSearchPriceseBay.size(); i++) {
+				results2.add(iPhoneSearchPriceseBay.get(i).getText());
+			}
+		return results2;
 	}
 
 	
