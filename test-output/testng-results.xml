@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="48786" started-at="2019-08-26T20:54:39Z" finished-at="2019-08-26T20:55:28Z">
+  <suite name="Default suite" duration-ms="48898" started-at="2019-08-26T21:10:26Z" finished-at="2019-08-26T21:11:15Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="48786" started-at="2019-08-26T20:54:39Z" finished-at="2019-08-26T20:55:28Z">
+    <test name="Default test" duration-ms="48898" started-at="2019-08-26T21:10:26Z" finished-at="2019-08-26T21:11:15Z">
       <class name="Assignments.astro_WebAutomation.TestCases_Web">
-        <test-method status="PASS" signature="beforeTest()[pri:0, instance:Assignments.astro_WebAutomation.TestCases_Web@4310d43]" name="beforeTest" is-config="true" duration-ms="1184" started-at="2019-08-26T20:54:39Z" finished-at="2019-08-26T20:54:40Z">
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:Assignments.astro_WebAutomation.TestCases_Web@4310d43]" name="beforeTest" is-config="true" duration-ms="1176" started-at="2019-08-26T21:10:26Z" finished-at="2019-08-26T21:10:27Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTest -->
-        <test-method status="PASS" signature="sortedSearchResultPrint()[pri:0, instance:Assignments.astro_WebAutomation.TestCases_Web@4310d43]" name="sortedSearchResultPrint" duration-ms="47316" started-at="2019-08-26T20:54:40Z" finished-at="2019-08-26T20:55:28Z">
+        <test-method status="PASS" signature="sortedSearchResultPrint()[pri:0, instance:Assignments.astro_WebAutomation.TestCases_Web@4310d43]" name="sortedSearchResultPrint" duration-ms="47433" started-at="2019-08-26T21:10:27Z" finished-at="2019-08-26T21:11:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- sortedSearchResultPrint -->
-        <test-method status="PASS" signature="AfterTest()[pri:0, instance:Assignments.astro_WebAutomation.TestCases_Web@4310d43]" name="AfterTest" is-config="true" duration-ms="262" started-at="2019-08-26T20:55:28Z" finished-at="2019-08-26T20:55:28Z">
+        <test-method status="PASS" signature="AfterTest()[pri:0, instance:Assignments.astro_WebAutomation.TestCases_Web@4310d43]" name="AfterTest" is-config="true" duration-ms="271" started-at="2019-08-26T21:11:15Z" finished-at="2019-08-26T21:11:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AfterTest -->

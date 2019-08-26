@@ -55,7 +55,6 @@ public class TestCases_Web<combineSearchResult> {
 		
 		//Create a variable for the list of iPhone8 result prices in amazon
 		List<String> searchPrice_amazon = amazonPage.amazon_get_List_of_Search_Price();
-		System.out.println("****&*&*&&*&*&*&*&*&*&*&* amazon price list "+searchPrice_amazon);
 		
 		//Opening eBay
 		driver.get(baseUrl_eBay);
@@ -74,7 +73,6 @@ public class TestCases_Web<combineSearchResult> {
 		
 		//Create a variable for the list of iPhone8 prices in eBay
 		List<String> searchPrices_eBay = eBayPage.eBayGetListofSearchPrices();
-		System.out.println("****&*&*&&*&*&*&*&*&*&*&* ebay price list"+searchPrices_eBay);
 		
 		
 		//Verifying that the search result contains the result of iPhone8
@@ -95,27 +93,18 @@ public class TestCases_Web<combineSearchResult> {
 		//Merging the search result price list of ebay and amzon
 		searchPrices_eBay.addAll(searchPrice_amazon);
 		
-		//Print the merged result of ebay and amzon
-		//System.out.println("The iphone8 result list from ebay : " +searchResult_eBay);
-		
-		//Print the merged price of ebay and amzon
-		//System.out.println("The iphone8 result list from ebay : " +searchPrices_eBay);		
-		
 		
 		//Sort and print the sorted and merged result of iPhone8
 		Collections.sort(searchResult_eBay);
-		Collections.sort(searchPrices_eBay);
+		
+		
+		//Printing all the results
+		System.out.println("The url of amazon: "+ baseUrl_Amazon);
+		System.out.println("The url of eBay: "+ baseUrl_eBay);
+		
 		for (int i = 0; i < searchResult_eBay.size() && i< searchPrices_eBay.size() ; i++) {
 			System.out.println("The ihpone search result with price is: "+searchResult_eBay.get(i)+searchPrices_eBay.get(i));
 		}
-		
-		/*for (int i = 0; i < searchPrices_eBay.size() ; i++) {
-			System.out.println("The prices of phone is"+searchPrices_eBay.get(i));
-		}*/
-		
-		/*for(String value : searchResult_eBay) {
-			System.out.println(value);
-		}*/
 	
 	}
 	

@@ -51,6 +51,4 @@ public class homePage_eBay {
 			}
 		return results2;
 	}
-
-	
 }
