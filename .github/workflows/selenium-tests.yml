@@ -1,0 +1,57 @@
+name: Selenium UI Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    # Runs daily at 08:00 UTC (4:00 AM EDT / 3:00 AM NDT)
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run TestNG Selenium Tests (Headless Chrome)
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: read
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Install Google Chrome (stable)
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Run TestNG tests via Maven
+        run: mvn clean test -B
+
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1.9.1
+        if: always()
+        with:
+          name: TestNG Results
+          path: "target/surefire-reports/TEST-*.xml"
+          reporter: java-junit
+          fail-on-error: false
+
+      - name: Upload Surefire Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+          retention-days: 14
