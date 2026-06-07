@@ -1,116 +1,91 @@
 package Assignments.astro_WebAutomation;
 
-import org.testng.annotations.Test;
-
 import com.todoist.en.homePage_eBay;
 import com.todoist.en.homePage_amazon;
-
-import org.testng.Assert;
-import org.testng.AssertJUnit;
-import static org.testng.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.*;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.AssertJUnit;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
+import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
 
-public class TestCases_Web<combineSearchResult> {
+public class TestCases_Web {
 
-	WebDriver driver = new ChromeDriver();
-	
-	@BeforeTest
-	public void beforeTest() {
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	}
+    WebDriver driver;
 
-	@Test
-	public void sortedSearchResultPrint() {
-		homePage_amazon amazonPage = new homePage_amazon(driver);
-		homePage_eBay eBayPage = new homePage_eBay(driver);
-		String baseUrl_Amazon = "https://www.amazon.com";
-		String baseUrl_eBay = "https://www.ebay.com/";
-		String keyword_iPhone = "iPhone8";
-		
-		//opening amazon
-		driver.get(baseUrl_Amazon);
-		
-		//Verifying the url title for amazon
-		AssertJUnit.assertEquals(driver.getTitle(), "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
-		
-		//searching for iPhone8 in searchbar and getting the list
-		amazonPage.amazon_type_KeyWord_for_iPhone_in_searchBox(keyword_iPhone);
-		amazonPage.amazon_click_searchButton_to_search_iPhone8();
-		amazonPage.amazon_get_List_of_Search_Result();
-		amazonPage.amazon_get_List_of_Search_Price();
-		
-		//Create a variable for the list of iPhone8 result in amazon
-		List<String> searchResult_amazon = amazonPage.amazon_get_List_of_Search_Result();
+    @BeforeTest
+    public void beforeTest() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        // headless=new: works on Chrome 112+ and GitHub Actions ubuntu runners
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1600,1100");
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
 
-		
-		//Create a variable for the list of iPhone8 result prices in amazon
-		List<String> searchPrice_amazon = amazonPage.amazon_get_List_of_Search_Price();
-		
-		//Opening eBay
-		driver.get(baseUrl_eBay);
-		
-		//Verifying the url title for eBay
-		AssertJUnit.assertEquals(driver.getTitle(), "Error Page | eBay");
-		
-		//searching for iPhone8 in searchbar and getting the list
-		eBayPage.eBaytypeKeyWordforiPhoneinsearchBox(keyword_iPhone);
-		eBayPage.eBayClickSearchButtontoSearchiPhone8();
-		eBayPage.eBayGetListofSearchResult();
-		eBayPage.eBayGetListofSearchPrices();
-		
-		//Create a variable for the list of iPhone8 result in eBay
-		List<String> searchResult_eBay = eBayPage.eBayGetListofSearchResult();
-		
-		//Create a variable for the list of iPhone8 prices in eBay
-		List<String> searchPrices_eBay = eBayPage.eBayGetListofSearchPrices();
-		
-		
-		//Verifying that the search result contains the result of iPhone8
-		if (searchResult_amazon.contains(keyword_iPhone)) {
-			System.out.println("iPhone8 results showing successfully in amazon");
-		}
-		else {
-			System.out.println("iPhone8 result didn't found in amazon");
-		}
-		
-		/*for (int i = 0; i < searchResult_amazon.size(); i++) {
-	        Assert.assertTrue(searchResult_amazon.get(i).getText().contains(keyword_iPhone));
-	    }*/
-		
-		//Merging the search result of ebay and amzon
-		searchResult_eBay.addAll(searchResult_amazon);
-		
-		//Merging the search result price list of ebay and amzon
-		searchPrices_eBay.addAll(searchPrice_amazon);
-		
-		
-		//Sort and print the sorted and merged result of iPhone8
-		Collections.sort(searchResult_eBay);
-		
-		
-		//Printing all the results
-		System.out.println("The url of amazon: "+ baseUrl_Amazon);
-		System.out.println("The url of eBay: "+ baseUrl_eBay);
-		
-		for (int i = 0; i < searchResult_eBay.size() && i< searchPrices_eBay.size() ; i++) {
-			System.out.println("The ihpone search result with price is: "+searchResult_eBay.get(i)+searchPrices_eBay.get(i));
-		}
-	
-	}
-	
-	@AfterTest
-	public void AfterTest() {
-		driver.close();
-	}
-	
+    @Test
+    public void sortedSearchResultPrint() {
+        homePage_amazon amazonPage = new homePage_amazon(driver);
+        homePage_eBay eBayPage = new homePage_eBay(driver);
+        String baseUrl_Amazon = "https://www.amazon.com";
+        String baseUrl_eBay = "https://www.ebay.com/";
+        String keyword_iPhone = "iPhone8";
+
+        // Open Amazon and verify title
+        driver.get(baseUrl_Amazon);
+        AssertJUnit.assertEquals(driver.getTitle(),
+                "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
+
+        // Search Amazon
+        amazonPage.amazon_type_KeyWord_for_iPhone_in_searchBox(keyword_iPhone);
+        amazonPage.amazon_click_searchButton_to_search_iPhone8();
+        List<String> searchResult_amazon = amazonPage.amazon_get_List_of_Search_Result();
+        List<String> searchPrice_amazon  = amazonPage.amazon_get_List_of_Search_Price();
+
+        // Open eBay and verify title
+        driver.get(baseUrl_eBay);
+        AssertJUnit.assertEquals(driver.getTitle(), "Error Page | eBay");
+
+        // Search eBay
+        eBayPage.eBaytypeKeyWordforiPhoneinsearchBox(keyword_iPhone);
+        eBayPage.eBayClickSearchButtontoSearchiPhone8();
+        List<String> searchResult_eBay  = eBayPage.eBayGetListofSearchResult();
+        List<String> searchPrices_eBay  = eBayPage.eBayGetListofSearchPrices();
+
+        // Check Amazon contains keyword
+        if (searchResult_amazon.contains(keyword_iPhone)) {
+            System.out.println("iPhone8 results showing successfully in amazon");
+        } else {
+            System.out.println("iPhone8 result didn't found in amazon");
+        }
+
+        // Merge and sort combined results
+        searchResult_eBay.addAll(searchResult_amazon);
+        searchPrices_eBay.addAll(searchPrice_amazon);
+        Collections.sort(searchResult_eBay);
+
+        // Print combined sorted results
+        System.out.println("The url of amazon: " + baseUrl_Amazon);
+        System.out.println("The url of eBay: " + baseUrl_eBay);
+        for (int i = 0; i < searchResult_eBay.size() && i < searchPrices_eBay.size(); i++) {
+            System.out.println("The iPhone search result with price is: "
+                    + searchResult_eBay.get(i) + searchPrices_eBay.get(i));
+        }
+    }
+
+    @AfterTest
+    public void afterTest() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 }
