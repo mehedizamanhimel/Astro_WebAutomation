@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Astro Web Automation Suite" verbose="1" parallel="none">
+
+    <test name="Amazon and eBay Search Tests">
+        <classes>
+            <class name="Assignments.astro_WebAutomation.TestCases_Web">
+                <methods>
+                    <include name="sortedSearchResultPrint"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
